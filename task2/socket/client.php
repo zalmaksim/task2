@@ -1,13 +1,9 @@
 <?php
-  header('Content-Type: text/plain;');
-  set_time_limit(0); 
-  ob_implicit_flush(); 
   $address = 'localhost';
   $port = 1985; 
   if (($socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) < 0) {
     echo "Socket create error";
-  }
-  else {
+  }  else {
     echo "Socket was created\n";
   }
   $result = socket_connect($socket, $address, $port);
