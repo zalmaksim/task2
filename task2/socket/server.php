@@ -1,6 +1,8 @@
 <?php
+
 $address = 'localhost';
 $port = 1985; 
+
 if (($sock = socket_create (AF_INET, SOCK_STREAM, SOL_TCP)) < 0) {
   echo "Socket create error";
 } else {
@@ -30,7 +32,7 @@ do {
   socket_write($msgsock, $msg, strlen($msg)); 
   do {
     echo 'Client message: ';
-    if (false === ($buf = socket_read($msgsock, 1024))) {
+    if (socket_read($msgsock, 1024) === false) {
       echo "Client message error";       
     } else {
       echo $buf."\n"; 
@@ -41,7 +43,7 @@ do {
       break 2;
     }
     
-      $buf = "You said: " .$buf;
+    $buf = "You said: " .$buf;
     socket_write($msgsock, $buf, strlen($buf));
   } while (true);
 } while (true);

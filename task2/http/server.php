@@ -1,6 +1,4 @@
 <?php
-set_time_limit(0);
-ob_implicit_flush();
 
 $address = '127.0.0.1';
 $port = 7500;
@@ -42,20 +40,20 @@ while (true) {
     }
 
     $buf = socket_read($msgsock, 1024);
-     echo $buf;
+    echo $buf;
     if ($buf === false) {
         echo "Can't do socket_read(): error " . "\n";
     }
    
-    if ($res = stristr($buf,"favicon")) {
+    if (strstr($buf, "favicon")) {
         socket_shutdown($msgsock);
-    } else{
+    } else {
         if ($i % 2)  {
             socket_write($msgsock,"HTTP/1.1 200 OK \n" . "Content-Type: text/html \n" . "\n" .  $iy);
-        } 
-        else {
+        } else {
             socket_write($msgsock,"HTTP/1.1 200 OK \n" . "Content-Type: text/plain \n" . "\n" .  $iy);
         }
+
         $i++;
         socket_shutdown($msgsock);
     }
