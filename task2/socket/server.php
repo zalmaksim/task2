@@ -17,12 +17,14 @@ if ((socket_listen($sock, 5)) < 0) {
 } else {
   echo "Waiting for client connection\n";
 }
+
 do {
   if (($msgsock = socket_accept($sock)) < 0) {
     echo "Socket connection error";
   } else {
     echo "Socket is ready\n";
   }
+
   $msg = "Hello!"; 
   echo "Server message: $msg";
   socket_write($msgsock, $msg, strlen($msg)); 
@@ -33,10 +35,12 @@ do {
     } else {
       echo $buf."\n"; 
     }
+
     if ($buf == 'exit') {
       socket_close($msgsock);
       break 2;
     }
+    
       $buf = "You said: " .$buf;
     socket_write($msgsock, $buf, strlen($buf));
   } while (true);
